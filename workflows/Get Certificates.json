@@ -1,0 +1,67 @@
+{
+  "name": "Get Certificates",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "00b6ed7f-602f-4763-809f-1b1ca9a1143f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": ".pdf",
+        "returnAll": true,
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "f0786eba-c3c5-44be-b2d4-812303d7af20",
+      "name": "Search files and folders",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "D0zFrgHJCzMRLwDS",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ad317197-7248-4ca4-97db-a3c23c56a690",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3cd9ea7275395bf9d7041260dfd0288cb60a8c71e6c4a962329371fc7336e418"
+  },
+  "nodeGroups": [],
+  "id": "4roLpMMi9BIGraqc",
+  "tags": []
+}
