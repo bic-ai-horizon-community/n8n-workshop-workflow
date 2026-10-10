@@ -1,0 +1,329 @@
+{
+  "name": "Send Certificates",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-128, 0],
+      "id": "b0185567-03cf-428d-8f0e-481560376cdb",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_YOUR_SPREADSHEET_ID",
+          "mode": "list",
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [112, 0],
+      "id": "cb7f0d1f-f644-4f24-8fa2-fece3b3b45b1",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [560, 0],
+      "id": "e6383918-477d-4560-b820-7c39c42f0a3a",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json['Certificate ID'] }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [784, 208],
+      "id": "5f22524d-5444-440f-a587-a56929198717",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Loop Over Items').item.json.Email }}",
+        "subject": "n8n AI Automation Workshop — Certificate of Participation (Testing)",
+        "message": "=<p>Dear <b>{{ $('Loop Over Items').item.json.Name }}</b>,</p>\n\n<p>Thank you for attending the <b>n8n AI Automation Workshop</b> on October 7, 2026. We hope you found the sessions useful and enjoyable.</p>\n\n<p>Your <b>Certificate of Participation</b> is attached to this email as a PDF.</p>\n\n<p><b>WORKSHOP MATERIALS</b><br>\nAll workshop materials are available here:<br>\n<a href=\"https://n8n-workshop-nine.vercel.app/\">https://n8n-workshop-nine.vercel.app/</a></p>\n\n<p><b>STAY CONNECTED</b><br>\nJoin our Discord community to ask questions, share your projects, and stay updated about upcoming events:<br>\n<a href=\"https://discord.gg/R4nu6WeD57\">https://discord.gg/R4nu6WeD57</a></p>\n\n<p><b>SHARE YOUR FEEDBACK</b><br>\nPlease take a moment to fill out our feedback form. Your feedback helps us improve future workshops:<br>\n<a href=\"https://docs.google.com/forms/d/1-JdziGTsdc4hBM6yqvjebv7G01fkB0d71nDX7hn-yOk/viewform\">https://docs.google.com/forms/d/1-JdziGTsdc4hBM6yqvjebv7G01fkB0d71nDX7hn-yOk/viewform</a></p>\n\n<p>If you notice any mistake in your name or have trouble opening your certificate, simply reply to this email and we will be happy to assist you.</p>\n\n<p>We hope to see you at our next event!</p>\n\n<p>Best regards,<br>\n<b>Research and Technical Head</b><br>\n<b>AI Horizon Community</b></p>",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [{}]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1008, 208],
+      "id": "efdb183f-b99e-48d0-8c09-55cb5a1f3e7e",
+      "name": "Send a message",
+      "webhookId": "e52f42df-a676-4dee-bfb5-21a47379c7bc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1456, 208],
+      "id": "37b8f1b7-91ad-4786-aafe-746fee97cf89",
+      "name": "Wait",
+      "webhookId": "cdf1208d-8eb3-43d1-8145-9f2bde74fd22"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_YOUR_SPREADSHEET_ID",
+          "mode": "list",
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('Loop Over Items').item.json.Email }}",
+            "Sent": "Yes"
+          },
+          "matchingColumns": ["Email"],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Certificate ID",
+              "displayName": "Certificate ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sent",
+              "displayName": "Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [1232, 208],
+      "id": "f58c2874-0178-4773-a983-2c7633166170",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d8553941-ac4b-41ae-9d15-7a2c231f4b1b",
+              "leftValue": "={{ $json.Sent }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [336, 0],
+      "id": "e50a0fb5-e1ec-4e56-8302-d57e3a0a78f0",
+      "name": "Filter",
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1cbb3754-a80f-40a8-821b-5d29c4e3bb11",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": ""
+  },
+  "nodeGroups": [],
+  "id": "hnmn0nf5s8hLfJXc",
+  "tags": []
+}
