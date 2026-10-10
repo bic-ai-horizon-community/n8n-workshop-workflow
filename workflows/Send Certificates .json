@@ -5,10 +5,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [
-        -128,
-        0
-      ],
+      "position": [-128, 0],
       "id": "b0185567-03cf-428d-8f0e-481560376cdb",
       "name": "When clicking ‘Execute workflow’"
     },
@@ -16,31 +13,28 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1p05EIOQvT1GmjxTjmTm7Cht7BcUhqy6DAjjjbQAuzTY",
+          "value": "REPLACE_WITH_YOUR_SPREADSHEET_ID",
           "mode": "list",
-          "cachedResultName": "Copy of N8N Automation Mail",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1p05EIOQvT1GmjxTjmTm7Cht7BcUhqy6DAjjjbQAuzTY/edit?usp=drivesdk"
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1p05EIOQvT1GmjxTjmTm7Cht7BcUhqy6DAjjjbQAuzTY/edit#gid=0"
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
         },
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
-      "position": [
-        112,
-        0
-      ],
+      "position": [112, 0],
       "id": "cb7f0d1f-f644-4f24-8fa2-fece3b3b45b1",
       "name": "Get row(s) in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "M1mTzIek2RDrXBB6",
+          "id": "",
           "name": "Google Sheets account"
         }
       }
@@ -51,10 +45,7 @@
       },
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [
-        560,
-        0
-      ],
+      "position": [560, 0],
       "id": "e6383918-477d-4560-b820-7c39c42f0a3a",
       "name": "Loop Over Items"
     },
@@ -70,15 +61,12 @@
       },
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
-      "position": [
-        784,
-        208
-      ],
+      "position": [784, 208],
       "id": "5f22524d-5444-440f-a587-a56929198717",
       "name": "Download file",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "D0zFrgHJCzMRLwDS",
+          "id": "",
           "name": "Google Drive account"
         }
       }
@@ -91,24 +79,19 @@
         "options": {
           "appendAttribution": false,
           "attachmentsUi": {
-            "attachmentsBinary": [
-              {}
-            ]
+            "attachmentsBinary": [{}]
           }
         }
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
-      "position": [
-        1008,
-        208
-      ],
+      "position": [1008, 208],
       "id": "efdb183f-b99e-48d0-8c09-55cb5a1f3e7e",
       "name": "Send a message",
       "webhookId": "e52f42df-a676-4dee-bfb5-21a47379c7bc",
       "credentials": {
         "gmailOAuth2": {
-          "id": "AUD6MBxEOp9lMfOu",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -117,10 +100,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [
-        1456,
-        208
-      ],
+      "position": [1456, 208],
       "id": "37b8f1b7-91ad-4786-aafe-746fee97cf89",
       "name": "Wait",
       "webhookId": "cdf1208d-8eb3-43d1-8145-9f2bde74fd22"
@@ -130,17 +110,17 @@
         "operation": "appendOrUpdate",
         "documentId": {
           "__rl": true,
-          "value": "1KbS6rlbmGGdUUX_BAFnka_39n1hHz-AfxAYrdjof_j4",
+          "value": "REPLACE_WITH_YOUR_SPREADSHEET_ID",
           "mode": "list",
-          "cachedResultName": "n8n automation mail",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KbS6rlbmGGdUUX_BAFnka_39n1hHz-AfxAYrdjof_j4/edit?usp=drivesdk"
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KbS6rlbmGGdUUX_BAFnka_39n1hHz-AfxAYrdjof_j4/edit#gid=0"
+          "cachedResultName": "REPLACE_WITH_YOUR_SPREADSHEET_NAME",
+          "cachedResultUrl": "REPLACE_WITH_YOUR_SPREADSHEET_URL"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -148,9 +128,7 @@
             "Email": "={{ $('Loop Over Items').item.json.Email }}",
             "Sent": "Yes"
           },
-          "matchingColumns": [
-            "Email"
-          ],
+          "matchingColumns": ["Email"],
           "schema": [
             {
               "id": "Name",
@@ -200,15 +178,12 @@
       },
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
-      "position": [
-        1232,
-        208
-      ],
+      "position": [1232, 208],
       "id": "f58c2874-0178-4773-a983-2c7633166170",
       "name": "Append or update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "M1mTzIek2RDrXBB6",
+          "id": "",
           "name": "Google Sheets account"
         }
       }
@@ -240,10 +215,7 @@
       },
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.3,
-      "position": [
-        336,
-        0
-      ],
+      "position": [336, 0],
       "id": "e50a0fb5-e1ec-4e56-8302-d57e3a0a78f0",
       "name": "Filter",
       "disabled": true
@@ -349,7 +321,7 @@
   "versionId": "1cbb3754-a80f-40a8-821b-5d29c4e3bb11",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3cd9ea7275395bf9d7041260dfd0288cb60a8c71e6c4a962329371fc7336e418"
+    "instanceId": ""
   },
   "nodeGroups": [],
   "id": "hnmn0nf5s8hLfJXc",
